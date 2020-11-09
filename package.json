@@ -1,0 +1,30 @@
+{
+  "name": "word_cards",
+  "version": "1.0.0",
+  "description": "word cards",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.6",
+    "@types/react": "^16.9.56",
+    "@types/react-dom": "^16.9.9",
+    "@types/webpack": "^4.41.24",
+    "@types/webpack-dev-server": "^3.11.1",
+    "ts-loader": "^8.0.10",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.5",
+    "webpack": "^5.4.0",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "start": "webpack serve",
+    "built": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
