@@ -5,7 +5,7 @@ const config: webpack.Configuration = {
   entry: './src/index.tsx',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(process.cwd() + 'dist'),
+    path: path.resolve(process.cwd(), 'dist'),
   },
   module: {
     rules: [
