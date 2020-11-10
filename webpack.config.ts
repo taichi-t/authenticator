@@ -17,6 +17,9 @@ const config: webpack.Configuration = {
     ],
   },
   resolve: {
+    alias: {
+      '@': path.resolve(__dirname),
+    },
     extensions: ['.ts', '.tsx', '.js', '.json'],
   },
   target: 'web',
