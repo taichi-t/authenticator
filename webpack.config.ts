@@ -5,7 +5,7 @@ const config: webpack.Configuration = {
   entry: './src/index.tsx',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(process.cwd(), 'public'),
+    path: path.resolve(__dirname, 'public'),
   },
   module: {
     rules: [
@@ -24,6 +24,7 @@ const config: webpack.Configuration = {
   },
   target: 'web',
   devServer: {
+    publicPath: './public',
     contentBase: './public',
     hot: true,
   },
