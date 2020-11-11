@@ -27,6 +27,10 @@ const config: webpack.Configuration = {
     contentBase: './public',
     hot: true,
   },
+  performance: {
+    maxEntrypointSize: 400000, // 400kb
+    maxAssetSize: 400000, // 400kb
+  },
 };
 
 export default config;

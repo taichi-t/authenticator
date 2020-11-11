@@ -4,8 +4,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "strict": true,
-    "noImplicitAny": true,
+    "strict": false,
     "sourceMap": true,
     "module": "CommonJS",
     "target": "es5",
