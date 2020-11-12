@@ -1,18 +1,40 @@
 import webpack from 'webpack';
 import path from 'path';
+import webpackMerge from 'webpack-merge';
+import nodeExternals from 'webpack-node-externals';
 
-const config: webpack.Configuration = {
-  entry: './src/index.tsx',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'public'),
+const mode = process.env.NODE_ENV || 'development';
+
+const config = {
+  web: {
+    output: {
+      filename: 'app.js',
+      path: path.resolve(__dirname, 'public/js'),
+    },
+    entry: './src/client/index.tsx',
+    devServer: {
+      contentBase: path.resolve(__dirname, 'public'),
+      hot: true,
+    },
   },
+  node: {
+    output: {
+      filename: 'server.js',
+      path: path.resolve(__dirname, 'dist'),
+    },
+    entry: './src/server/server.ts',
+    externals: [nodeExternals()],
+  },
+};
+
+const baseConfig: webpack.Configuration = {
+  mode: 'development',
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: '/node_modules/',
+        exclude: ['/node_modules/'],
       },
     ],
   },
@@ -22,16 +44,19 @@ const config: webpack.Configuration = {
     },
     extensions: ['.ts', '.tsx', '.js', '.json'],
   },
-  target: 'web',
-  devServer: {
-    publicPath: './public',
-    contentBase: './public',
-    hot: true,
-  },
   performance: {
-    maxEntrypointSize: 400000, // 400kb
-    maxAssetSize: 400000, // 400kb
+    maxEntrypointSize: 600000, // 600kb
+    maxAssetSize: 600000, // 600kb
   },
+  devtool: mode === 'development' ? 'inline-source-map' : false,
 };
 
-export default config;
+const targets = ['web', 'node'].map((target) => {
+  const base = webpackMerge(baseConfig, {
+    target,
+    ...config[target],
+  });
+  return base;
+});
+
+module.exports = targets;
