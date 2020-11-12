@@ -24,7 +24,6 @@ const config: webpack.Configuration = {
   },
   target: 'web',
   devServer: {
-    publicPath: './public',
     contentBase: './public',
     hot: true,
   },
