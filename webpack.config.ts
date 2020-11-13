@@ -22,7 +22,7 @@ const config = {
       filename: 'server.js',
       path: path.resolve(__dirname, 'dist'),
     },
-    entry: './src/server/server.ts',
+    entry: './src/server/index.ts',
     externals: [nodeExternals()],
   },
 };
