@@ -4,6 +4,7 @@
   "description": "word cards",
   "main": "./dist/server.js",
   "dependencies": {
+    "@hapi/boom": "^9.1.0",
     "@reduxjs/toolkit": "^1.4.0",
     "axios": "^0.21.0",
     "express": "^4.17.1",
@@ -17,6 +18,7 @@
     "webpack-node-externals": "^2.5.2"
   },
   "devDependencies": {
+    "@types/boom": "^7.3.0",
     "@types/express": "^4.17.9",
     "@types/mongoose": "^5.10.0",
     "@types/node": "^14.14.6",

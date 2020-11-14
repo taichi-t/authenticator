@@ -1,4 +1,5 @@
 import express from 'express';
+// import { errorHandler, logErrors } from '@/server/middleware/error';
 import apiRouter from './routes/index';
 
 const app: express.Application = express();
