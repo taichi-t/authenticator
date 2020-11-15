@@ -2,22 +2,30 @@ import webpack from 'webpack';
 import path from 'path';
 import webpackMerge from 'webpack-merge';
 import nodeExternals from 'webpack-node-externals';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import Dotenv from 'dotenv-webpack';
 
 const mode = process.env.NODE_ENV || 'development';
 
 const config = {
   web: {
+    entry: './src/client/index.tsx',
     output: {
       filename: 'app.js',
-      path: path.resolve(__dirname, 'public/js'),
+      path: path.resolve(__dirname, 'public'),
     },
-    entry: './src/client/index.tsx',
     devServer: {
-      contentBase: path.resolve(__dirname, 'public'),
+      publicPath: 'public',
+      contentBase: path.resolve(__dirname, 'public/'),
+      inline: true,
+      watchContentBase: true,
       hot: true,
+      open: true,
+      port: 8888,
     },
   },
   node: {
+    watch: true,
     output: {
       filename: 'server.js',
       path: path.resolve(__dirname, 'dist'),
@@ -36,6 +44,11 @@ const baseConfig: webpack.Configuration = {
         use: 'ts-loader',
         exclude: ['/node_modules/'],
       },
+      {
+        test: /\.html$/,
+        exclude: /node_modules/,
+        use: 'html-loader',
+      },
     ],
   },
   resolve: {
@@ -49,12 +62,20 @@ const baseConfig: webpack.Configuration = {
     maxAssetSize: 600000, // 600kb
   },
   devtool: mode === 'development' ? 'inline-source-map' : false,
+  plugins: [new Dotenv()],
 };
 
 const targets = ['web', 'node'].map((target) => {
   const base = webpackMerge(baseConfig, {
     target,
     ...config[target],
+    plugins:
+      target === 'web'
+        ? [
+            new Dotenv(),
+            new HtmlWebpackPlugin({ template: './src/client/index.html' }),
+          ]
+        : [new Dotenv()],
   });
   return base;
 });

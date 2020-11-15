@@ -1,12 +1,17 @@
-import { Response, NextFunction } from 'express';
-import { CustomError } from '@/types/index';
+import { Response, Request } from 'express';
 
-export const logErrors = (err: CustomError, next: NextFunction) => {
-  console.error(err.stack);
-  next(err);
+import boom from '@hapi/boom';
+
+export const logErrors = (err: boom.Boom<Error>) => {
+  console.error(err.output);
 };
 
-export const errorHandler = (err: CustomError, res: Response) => {
-  res.status(err.statusCode || 500);
+export const errorHandler = (
+  err: boom.Boom<Error>,
+  req: Request,
+  res: Response
+) => {
+  logErrors(err);
+  res.status(err.output.statusCode || 500);
   res.send({ error: err });
 };
