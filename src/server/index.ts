@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import apiRouter from './routes/index';
 import MDBConnect from './middleware/connectDb';
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3333;
 
 const app: express.Application = express();
 
