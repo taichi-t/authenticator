@@ -4,6 +4,7 @@ import webpackMerge from 'webpack-merge';
 import nodeExternals from 'webpack-node-externals';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import Dotenv from 'dotenv-webpack';
+import HardSourceWebpackPlugin from 'hard-source-webpack-plugin';
 
 const mode = process.env.NODE_ENV || 'development';
 
@@ -15,13 +16,10 @@ const config = {
       path: path.resolve(__dirname, 'public'),
     },
     devServer: {
-      publicPath: 'public',
       contentBase: path.resolve(__dirname, 'public'),
       inline: true,
-      compress: true,
-      watchContentBase: true,
+      open: true,
       historyApiFallback: true,
-      hot: true,
       proxy: {
         '/api': {
           target: 'http://localhost:8080',
@@ -78,8 +76,9 @@ const targets = ['web', 'node'].map((target) => {
         ? [
             new Dotenv(),
             new HtmlWebpackPlugin({ template: './src/client/index.html' }),
+            new HardSourceWebpackPlugin(),
           ]
-        : [new Dotenv()],
+        : [new Dotenv(), new HardSourceWebpackPlugin()],
   });
   return base;
 });
