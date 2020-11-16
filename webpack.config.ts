@@ -19,6 +19,7 @@ const config = {
       contentBase: path.resolve(__dirname, 'public'),
       inline: true,
       open: true,
+      hot: true,
       historyApiFallback: true,
       proxy: {
         '/api': {
