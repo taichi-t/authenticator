@@ -16,16 +16,18 @@ const config = {
     },
     devServer: {
       publicPath: 'public',
-      contentBase: path.resolve(__dirname, 'public/'),
+      contentBase: path.resolve(__dirname, './public'),
       inline: true,
       watchContentBase: true,
       hot: true,
-      open: true,
-      port: 8888,
+      proxy: {
+        '/api': {
+          target: 'http://localhost:8080',
+        },
+      },
     },
   },
   node: {
-    watch: true,
     output: {
       filename: 'server.js',
       path: path.resolve(__dirname, 'dist'),
@@ -46,8 +48,8 @@ const baseConfig: webpack.Configuration = {
       },
       {
         test: /\.html$/,
-        exclude: /node_modules/,
         use: 'html-loader',
+        exclude: /node_modules/,
       },
     ],
   },

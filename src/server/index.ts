@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import apiRouter from './routes/index';
 import MDBConnect from './middleware/connectDb';
 
-const port = process.env.PORT || 3333;
+const port = process.env.PORT || 8080;
 
 const app: express.Application = express();
 
@@ -20,6 +20,8 @@ db.on('error', (err: Error) => {
 });
 db.once('open', () => console.log('Succcessfully connected'));
 
-app.use(errorHandler);
+app.listen(port, () =>
+  console.log(`Server listening on port: http://localhost:${port}/`)
+);
 
-app.listen(port, () => console.log(`Server listening on port: ${port}`));
+app.use(errorHandler);

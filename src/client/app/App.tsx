@@ -26,4 +26,9 @@ const App: React.FC = () => {
   );
 };
 
+if (module.hot) {
+  module.hot.accept();
+  console.log('changed');
+}
+
 export default App;

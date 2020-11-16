@@ -2,7 +2,7 @@
   "name": "word_cards",
   "version": "1.0.0",
   "description": "word cards",
-  "main": "./src/server/index.ts",
+  "main": "./dist/server.js",
   "dependencies": {
     "@hapi/boom": "^9.1.0",
     "@reduxjs/toolkit": "^1.4.0",
@@ -13,6 +13,7 @@
     "mongoose": "^5.10.14",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-hot-loader": "^4.13.0",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "webpack": "^5.4.0",
@@ -31,6 +32,7 @@
     "@types/react-router-dom": "^5.1.6",
     "@types/webpack": "^4.41.24",
     "@types/webpack-dev-server": "^3.11.1",
+    "@types/webpack-env": "^1.15.3",
     "@types/webpack-merge": "^4.1.5",
     "@types/webpack-node-externals": "^2.5.0",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
@@ -54,8 +56,9 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "watch:build": "webpack -w ",
-    "watch:server": "nodemon dist/server.js & webpack serve",
+    "watch:build": "webpack -w",
+    "watch:server": "nodemon dist/server.js -w ",
+    "watch:client": "webpack serve --hot --port 3000",
     "dev": "npm-run-all --parallel watch:* ",
     "built": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
