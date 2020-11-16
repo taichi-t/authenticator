@@ -16,9 +16,11 @@ const config = {
     },
     devServer: {
       publicPath: 'public',
-      contentBase: path.resolve(__dirname, './public'),
+      contentBase: path.resolve(__dirname, 'public'),
       inline: true,
+      compress: true,
       watchContentBase: true,
+      historyApiFallback: true,
       hot: true,
       proxy: {
         '/api': {
@@ -49,7 +51,7 @@ const baseConfig: webpack.Configuration = {
       {
         test: /\.html$/,
         use: 'html-loader',
-        exclude: /node_modules/,
+        exclude: ['/node_modules/'],
       },
     ],
   },
