@@ -18,7 +18,7 @@ describe('errorHandler', () => {
     };
   });
 
-  it('shoud return error object', async (done) => {
+  it('shoud be called send fn with Error object', async (done) => {
     const mockError = boom.badRequest('test error');
     console.log(mockError);
     errorHandler(
