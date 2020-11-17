@@ -65,7 +65,7 @@
     "watch:client": "webpack-dev-server --config ./webpack.client.config.ts --hot",
     "dev": "npm-run-all --parallel watch:*",
     "built": "webpack",
-    "test": "jest",
+    "test": "jest --coverage",
     "lint": "eslint --ext .ts,.tsx ./src"
   },
   "author": "Taichi Tsujioka",
