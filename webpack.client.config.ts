@@ -43,7 +43,9 @@ const clientConfig = merge<Configuration>(commonConfig, {
     inline: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'http://[::1]:8080',
+        secure: false,
+        changeOrigin: true,
       },
     },
   },

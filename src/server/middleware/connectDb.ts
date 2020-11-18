@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import boom from '@hapi/boom';
-import { Response, Request, NextFunction } from 'express';
+import { RequestHandler } from 'express';
 
 const options = {
   useCreateIndex: true,
@@ -9,12 +9,8 @@ const options = {
   useUnifiedTopology: true,
 };
 
-class MDBConnect {
-  static connectDb = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
+class MongoDb {
+  static connectDb: RequestHandler = (req, res, next) => {
     mongoose.connect(process.env.MONGODB_URL, options);
     const db = mongoose.connection;
 
@@ -39,4 +35,4 @@ class MDBConnect {
   // etc etc etc
 }
 
-export default MDBConnect;
+export default MongoDb;

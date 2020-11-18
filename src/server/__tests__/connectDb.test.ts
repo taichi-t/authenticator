@@ -1,6 +1,6 @@
 import boom from '@hapi/boom';
 import mongoose from 'mongoose';
-import MDBConnect from '../middleware/connectDb';
+import MongoDb from '../middleware/connectDb';
 
 describe('connectDb', () => {
   let connection;
@@ -9,7 +9,7 @@ describe('connectDb', () => {
   // const nextFunction: NextFunction = jest.fn();
 
   beforeAll(async () => {
-    connection = await MDBConnect.connectDb;
+    connection = await MongoDb.connectDb;
     db = mongoose.connection;
     // db.on('error', (err) => {
     //   done.fail(err);

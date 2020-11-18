@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import boom from '@hapi/boom';
 import { errorHandler } from '../middleware/error';
 // import request from 'supertest';
@@ -6,7 +6,7 @@ import { errorHandler } from '../middleware/error';
 describe('errorHandler', () => {
   let mockRequest: Partial<Request>;
   let mockResponse: Partial<Response>;
-  // const nextFunction: NextFunction = jest.fn();
+  const nextFunction: NextFunction = jest.fn();
 
   beforeEach(() => {
     mockRequest = {};
@@ -18,11 +18,12 @@ describe('errorHandler', () => {
   });
 
   it('shoud call send fn with Error object', async (done) => {
-    const mockError = boom.badRequest('test error');
+    const mockError = boom.badRequest('something wrong...., please try again');
     errorHandler(
       mockError as boom.Boom<Error>,
       mockRequest as Request,
-      mockResponse as Response
+      mockResponse as Response,
+      nextFunction as NextFunction
     );
     expect(mockResponse.send).toBeCalledWith({ error: mockError });
     done();

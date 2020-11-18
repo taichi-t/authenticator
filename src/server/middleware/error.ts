@@ -1,22 +1,31 @@
-import { Response, Request, NextFunction } from 'express';
+import { RequestHandler, ErrorRequestHandler } from 'express';
 
 import boom from '@hapi/boom';
 
-export const logErrors = (
+export const logErrors: ErrorRequestHandler = (
   err: boom.Boom<Error> | Error,
-  req: Request,
-  res: Response,
-  next: NextFunction
+  req,
+  res,
+  next
 ) => {
   console.error(err);
-  next();
+  next(err);
 };
 
-export const errorHandler = (
+export const errorHandler: ErrorRequestHandler = (
   err: boom.Boom<Error> | Error,
-  req: Request,
-  res: Response
+  req,
+  res
 ) => {
-  res.status(500);
-  res.send({ error: err });
+  if (boom.isBoom(err)) {
+    res.send({ error: err });
+  } else {
+    const customError = boom.internal('Something wrong, please try again.');
+    res.send({ error: customError });
+  }
+};
+
+export const notFound: RequestHandler = (req, res, next) => {
+  const customError = boom.notFound('Not found');
+  next(customError);
 };
