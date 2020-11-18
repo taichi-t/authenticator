@@ -25,19 +25,6 @@ describe('errorHandler', () => {
       mockResponse as Response
     );
     expect(mockResponse.send).toBeCalledWith({ error: mockError });
-
-    done();
-  });
-
-  it('has no statusCode, erro object should contain 500 of statusCode', async (done) => {
-    const mockError = boom.badData('test Data', new Error());
-    mockError.output.statusCode = undefined;
-    errorHandler(
-      mockError as boom.Boom<Error>,
-      mockRequest as Request,
-      mockResponse as Response
-    );
-    expect(mockResponse.status).toBeCalledWith(500);
     done();
   });
 });

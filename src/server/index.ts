@@ -1,7 +1,6 @@
 import express from 'express';
-import { errorHandler } from '@/server/middleware/error';
-import boom from '@hapi/boom';
-import mongoose from 'mongoose';
+import { errorHandler, logErrors } from '@/server/middleware/error';
+
 import apiRouter from './routes/index';
 import MDBConnect from './middleware/connectDb';
 
@@ -13,15 +12,10 @@ app.use(apiRouter);
 
 app.use(MDBConnect.connectDb);
 
-const db = mongoose.connection;
-db.on('error', (err: Error) => {
-  const error = boom.badGateway('Error connecting db', err);
-  throw error;
-});
-db.once('open', () => console.log('Succcessfully connected'));
-
 app.listen(port, () =>
   console.log(`Server listening on port: http://localhost:${port}/`)
 );
+
+app.use(logErrors);
 
 app.use(errorHandler);
