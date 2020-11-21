@@ -1,13 +1,12 @@
 import * as express from 'express';
+import authRouter from './auth';
 
-const router: express.Router = express.Router();
+const apiRouter: express.Router = express.Router();
 
-router.get('/api/hello', (req, res) => {
-  res.json('World aa');
-});
+apiRouter.use('/auth', authRouter);
 
-router.get('/api/', (req, res) => {
+apiRouter.get('/', (req, res) => {
   res.json('index now!!');
 });
 
-export default router;
+export default apiRouter;
