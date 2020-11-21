@@ -1,6 +1,7 @@
 import express from 'express';
 import { errorHandler, logErrors, notFound } from '@/server/middleware/error';
 
+import cors from 'cors';
 import apiRouter from './routes/index';
 import MongoDb from './middleware/connectDb';
 
@@ -8,7 +9,9 @@ const port = process.env.PORT || 8080;
 
 const app: express.Application = express();
 
-app.use(apiRouter);
+app.use(cors());
+
+app.use('/api', apiRouter);
 
 app.use(MongoDb.connectDb);
 
@@ -21,5 +24,5 @@ app.use(logErrors);
 app.use(errorHandler);
 
 app.listen(port, () =>
-  console.log(`Server listening on port: http://localhost:${port}/`)
+  console.log(`🌏 Server listening on port: http://localhost:${port}/`)
 );

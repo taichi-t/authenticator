@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import baseServerUrl from '@/client/lib/baseServerUrl';
 
 export interface AuthState {
   auth: Record<string, unknown>;
@@ -21,7 +22,7 @@ const initialState: AuthState = {
 
 export const fetchData = createAsyncThunk('auth/fetchData', () =>
   axios
-    .get('https://jsonplaceholder.typicode.com/todos/1')
+    .get(`${baseServerUrl}/api/auth`)
     .then((res) => {
       if (res.status !== 200) {
         throw new Error('Error getting data');
