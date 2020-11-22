@@ -22,7 +22,7 @@ const initialState: AuthState = {
 
 export const fetchData = createAsyncThunk('auth/fetchData', () =>
   axios
-    .get(`${baseServerUrl}/api/auth`)
+    .get(`${baseServerUrl}/api/`)
     .then((res) => {
       if (res.status !== 200) {
         throw new Error('Error getting data');
