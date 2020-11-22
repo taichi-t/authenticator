@@ -14,6 +14,9 @@ const serverConfig = merge<Configuration>(commonConfig, {
     filename: 'server.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  node: {
+    __dirname: true,
+  },
   module: {
     rules: [
       {

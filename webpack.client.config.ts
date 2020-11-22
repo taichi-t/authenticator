@@ -46,6 +46,9 @@ const clientConfig = merge<Configuration>(commonConfig, {
         target: 'http://[::1]:8080',
         secure: false,
         changeOrigin: true,
+        headers: {
+          Connection: 'keep-alive',
+        },
       },
     },
   },
