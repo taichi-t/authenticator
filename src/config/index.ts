@@ -11,7 +11,7 @@ export const BASESERVERURL =
 export const GOOGLE = {
   clientID: process.env.GOOGLE_CLIENTID,
   clientSecret: process.env.GOOGLE_SECRET,
-  callbackURL: `${BASESERVERURL}/api/auth/google/callback`,
+  callbackURL: `${BASESERVERURL}/api/auth/login/google/callback`,
 };
 
 export const SESSION = { secret: process.env.SESSION_SECRET };

@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import boom from '@hapi/boom';
-import { RequestHandler } from 'express';
 
 const options = {
   useCreateIndex: true,
@@ -10,16 +9,18 @@ const options = {
 };
 
 class MongoDb {
-  static connectDb: RequestHandler = (req, res, next) => {
+  static connectDb = () => {
     mongoose.connect(process.env.MONGODB_URL, options);
     const db = mongoose.connection;
 
     db.on('error', (err: Error) => {
       const error = boom.badGateway('Error connecting db', err);
-      next(error);
+      throw error;
     });
 
-    db.once('open', () => next());
+    db.once('open', () => {
+      console.log('💭 DB connect');
+    });
   };
 
   // static findOne(db, collection, query) {

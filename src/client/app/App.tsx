@@ -7,13 +7,13 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const { mockData } = useSelector(authSelector);
+  const { auth } = useSelector(authSelector);
 
   React.useEffect(() => {
     dispatch(fetchData());
   }, [dispatch]);
 
-  console.log({ mockData });
+  console.log({ auth });
 
   return (
     <BrowserRouter>
