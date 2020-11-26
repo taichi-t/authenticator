@@ -1,8 +1,9 @@
 import * as React from 'react';
 import axios from 'axios';
+import { BASESERVERURL } from '@/config/index';
 
 const Header: React.FC = () => {
-  const handleClick = async () => {
+  const handleLogout = async () => {
     try {
       const res = await axios.get('/api/auth/logout');
       console.log(res);
@@ -10,12 +11,15 @@ const Header: React.FC = () => {
       console.error(err);
     }
   };
+
   return (
     <div>
-      <button type="button" onClick={() => handleClick()}>
+      <button type="button" onClick={() => handleLogout()}>
         logout
       </button>
-      header
+      <a type="button" href={`${BASESERVERURL}/api/auth/login/google`}>
+        login
+      </a>
     </div>
   );
 };

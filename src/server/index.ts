@@ -13,6 +13,7 @@ const env = process.env.NODE_ENV;
 const app: express.Application = express();
 
 // Express body parser
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
@@ -37,7 +38,7 @@ app.use(passport.session());
 app.use('/api', apiRouter);
 
 // MongoDb
-app.use(MongoDb.connectDb);
+MongoDb.connectDb();
 
 // catch 404 and forward to error handler
 app.get('*', notFound);

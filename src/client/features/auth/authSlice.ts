@@ -3,33 +3,26 @@ import axios from 'axios';
 import baseServerUrl from '@/client/lib/baseServerUrl';
 
 export interface AuthState {
-  auth: Record<string, unknown>;
-  loading: boolean;
-  errors: string;
-  mockData: any;
+  auth: {
+    data: Record<string, unknown>;
+    loading: boolean;
+    error: string;
+  };
 }
 
 const initialState: AuthState = {
-  auth: {},
-  loading: false,
-  errors: '',
-  mockData: {
-    loading: false,
-    errors: {},
-    data: {},
+  auth: {
+    data: undefined,
+    loading: true,
+    error: undefined,
   },
 };
 
 export const fetchData = createAsyncThunk('auth/fetchData', () =>
   axios
-    .get(`${baseServerUrl}/api/`)
-    .then((res) => {
-      if (res.status !== 200) {
-        throw new Error('Error getting data');
-      }
-      return res.data;
-    })
-    .catch((err) => err)
+    .get(`${baseServerUrl}/api/auth`)
+    .then((res) => res.data)
+    .catch((err) => Promise.reject(new Error(err.response.data.message)))
 );
 
 const authSlice = createSlice({
@@ -37,37 +30,37 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setLoading: (state, { payload }: PayloadAction<boolean>) => {
-      state.loading = payload;
+      state.auth.loading = payload;
     },
 
     setErrors: (state, { payload }: PayloadAction<string>) => {
-      state.errors = payload;
+      state.auth.error = payload;
     },
 
     setAuth: (state, { payload }: PayloadAction<Record<string, unknown>>) => {
-      state.auth = payload;
+      state.auth.data = payload;
     },
   },
   extraReducers: {
     [fetchData.fulfilled.type]: (state, action) => {
-      state.mockData = {
-        loading: false,
-        errors: undefined,
+      state.auth = {
         data: action.payload,
+        loading: false,
+        error: undefined,
       };
     },
     [fetchData.pending.type]: (state) => {
-      state.mockData = {
-        loading: true,
-        errors: undefined,
+      state.auth = {
         data: undefined,
+        loading: true,
+        error: undefined,
       };
     },
     [fetchData.rejected.type]: (state, action) => {
-      state.mockData = {
-        loading: false,
-        errors: action.payload,
+      state.auth = {
         data: undefined,
+        error: action.error,
+        loading: false,
       };
     },
   },
