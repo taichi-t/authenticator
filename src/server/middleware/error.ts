@@ -1,9 +1,12 @@
 import { RequestHandler, ErrorRequestHandler } from 'express';
+import boom, { Boom } from '@hapi/boom';
 
-import boom from '@hapi/boom';
+export interface CustomError {
+  err: Boom<Error> | Error | Boom<unknown>;
+}
 
 export const logErrors: ErrorRequestHandler = (
-  err: boom.Boom<Error> | Error,
+  err: CustomError,
   req,
   res,
   next
@@ -12,11 +15,7 @@ export const logErrors: ErrorRequestHandler = (
   next(err);
 };
 
-export const errorHandler: ErrorRequestHandler = (
-  err: boom.Boom<Error> | Error,
-  req,
-  res
-) => {
+export const errorHandler: ErrorRequestHandler = (err: Error, req, res) => {
   if (boom.isBoom(err)) {
     res.send({ error: err });
   } else {

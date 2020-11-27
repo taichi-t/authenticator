@@ -22,6 +22,7 @@
     "import/resolver": "typescript"
   },
   "rules": {
+    "no-underscore-dangle": 0,
     "func-names": "off",
     "no-param-reassign": ["error", { "props": false }],
     "react/require-default-props": [

@@ -4,15 +4,31 @@ import passport from 'passport';
 import googlePassport from '@/server/controllers/auth/google';
 import boom from '@hapi/boom';
 import { BASECLIENTURL } from '@/config';
+import { IUserDoc } from '@/types/user';
+import UserModel from '@/server/models/User';
 
 const authRouter: express.Router = express.Router();
 
-passport.serializeUser((user, done) => {
-  done(null, user);
+passport.serializeUser((user: IUserDoc, done) => {
+  done(null, user.googleId);
 });
 
-passport.deserializeUser((user, done) => {
-  done(null, user);
+passport.deserializeUser((googleId: string, done) => {
+  const user = new UserModel();
+  user.isAuthenticated(googleId, (_err, _user) => {
+    if (_err) {
+      const customError = boom.badImplementation('Server Error.', _err);
+      return done(customError, false);
+    }
+    if (!_user) {
+      const customError = boom.badImplementation(
+        'Your google acount is not registered, please sign up.',
+        _err
+      );
+      return done(customError, false);
+    }
+    return done(null, _user);
+  });
 });
 
 authRouter.get('/', (req, res) => {
@@ -36,7 +52,10 @@ authRouter.get('/logout', (req, res) => {
 
 authRouter.get(
   '/login/google',
-  googlePassport.authenticate('google', { scope: ['profile'], session: true })
+  googlePassport.authenticate('google', {
+    scope: ['profile'],
+    session: true,
+  })
 );
 
 authRouter.get(

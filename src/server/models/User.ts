@@ -1,11 +1,7 @@
-import mongoose, { Document, Model } from 'mongoose';
-import { IUser } from '@/types/user';
+import mongoose, { Model } from 'mongoose';
+import { IUserDoc } from '@/types/user';
 
-const { String } = mongoose.Schema.Types;
-
-interface IUserDoc extends IUser, Document {
-  isAuthenticated: (googleId: string, cb) => Error | IUser;
-}
+const { String, ObjectId } = mongoose.Schema.Types;
 
 /**
  * User schema
@@ -13,7 +9,8 @@ interface IUserDoc extends IUser, Document {
 
 const UserSchema = new mongoose.Schema(
   {
-    googleId: { type: String },
+    _id: { type: ObjectId },
+    googleId: { type: String, default: '' },
     firstName: { type: String, default: '' },
     lastName: { type: String, default: '' },
     email: { type: String, default: '' },
