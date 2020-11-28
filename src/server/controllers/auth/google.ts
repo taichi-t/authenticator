@@ -14,7 +14,7 @@ passport.use(
     (accessToken, refreshToken, profile, done) => {
       const user = new User();
       const { id } = profile;
-      user.isAuthenticated(id, (_err, _user) => {
+      user.AuthWithGoogleId(id, (_err, _user) => {
         if (_err) {
           const customError = boom.badImplementation('Server Error.', _err);
           return done(null, false, customError);

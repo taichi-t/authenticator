@@ -32,7 +32,7 @@ const UserSchema = new mongoose.Schema(
  * Methods
  */
 
-UserSchema.methods.isAuthenticated = function (googleId, cb) {
+UserSchema.methods.AuthWithGoogleId = function (googleId, cb) {
   UserModel.findOne({ googleId }, (err, user) => {
     return cb(err, user);
   });

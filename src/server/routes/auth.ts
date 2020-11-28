@@ -15,7 +15,7 @@ passport.serializeUser((user: IUserDoc, done) => {
 
 passport.deserializeUser((googleId: string, done) => {
   const user = new UserModel();
-  user.isAuthenticated(googleId, (_err, _user) => {
+  user.AuthWithGoogleId(googleId, (_err, _user) => {
     if (_err) {
       const customError = boom.badImplementation('Server Error.', _err);
       return done(customError, false);
@@ -49,6 +49,8 @@ authRouter.get('/logout', (req, res) => {
     res.send('logged out');
   });
 });
+
+// google Auth
 
 authRouter.get(
   '/login/google',

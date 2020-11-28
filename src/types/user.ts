@@ -9,7 +9,7 @@ export interface IUser {
 }
 
 export interface IUserDoc extends IUser, Document {
-  isAuthenticated: (
+  AuthWithGoogleId: (
     googleId: string,
     cb: (err: Error | null, user: IUser | null) => void
   ) => void;
