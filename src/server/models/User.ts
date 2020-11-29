@@ -1,15 +1,10 @@
 import mongoose, { Model } from 'mongoose';
-import { IUserDoc } from '@/types/user';
+import { IUserDoc, CustomGoogleProfile } from '@/types/user';
 
-const { String, ObjectId } = mongoose.Schema.Types;
-
-/**
- * User schema
- */
+const { String } = mongoose.Schema.Types;
 
 const UserSchema = new mongoose.Schema(
   {
-    _id: { type: ObjectId },
     googleId: { type: String, default: '' },
     firstName: { type: String, default: '' },
     lastName: { type: String, default: '' },
@@ -21,31 +16,33 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-/**
- * Add your
- * - pre-save hooks
- * - validations
- * - virtuals
- */
+// Methods
 
-/**
- * Methods
- */
-
-UserSchema.methods.AuthWithGoogleId = function (googleId, cb) {
+UserSchema.methods.AuthWithGoogleId = function (googleId: string, cb) {
   UserModel.findOne({ googleId }, (err, user) => {
     return cb(err, user);
   });
 };
-/**
- * Statics
- */
+
+UserSchema.methods.RegisterWithGoogleProfile = function (
+  profile: CustomGoogleProfile,
+  cb
+) {
+  const { id, name, emails, photos } = profile;
+  const newUser = new UserModel({
+    googleId: id,
+    firstName: name.familyName,
+    lastName: name.givenName,
+    email: emails[0].value,
+    profileUrl: photos[0].value,
+  });
+  newUser.save((err, user) => {
+    return cb(err, user);
+  });
+};
+// Statics
 
 UserSchema.static({});
-
-/**
- * Register
- */
 
 const UserModel: Model<IUserDoc> = mongoose.model<IUserDoc>('User', UserSchema);
 

@@ -6,8 +6,17 @@ import boom from '@hapi/boom';
 import { BASECLIENTURL } from '@/config';
 import { IUserDoc } from '@/types/user';
 import UserModel from '@/server/models/User';
+import * as session from 'express-session';
 
 const authRouter: express.Router = express.Router();
+
+interface CustomSession extends session.Session {
+  info: Record<string, unknown>;
+}
+
+export interface CustomRequest extends express.Request {
+  session: CustomSession;
+}
 
 passport.serializeUser((user: IUserDoc, done) => {
   done(null, user.googleId);
@@ -31,13 +40,6 @@ passport.deserializeUser((googleId: string, done) => {
   });
 });
 
-authRouter.get('/', (req, res) => {
-  if (!req.user) {
-    res.status(401).send({ message: 'You are not currently logged in' });
-  }
-  return res.json(req.user);
-});
-
 authRouter.get('/logout', (req, res) => {
   req.logout();
   req.session.destroy((err) => {
@@ -46,7 +48,7 @@ authRouter.get('/logout', (req, res) => {
       res.send(customError);
     }
     res.clearCookie('connect.sid');
-    res.send('logged out');
+    res.redirect(`${BASECLIENTURL}`);
   });
 });
 
@@ -54,23 +56,62 @@ authRouter.get('/logout', (req, res) => {
 
 authRouter.get(
   '/login/google',
-  googlePassport.authenticate('google', {
+  googlePassport.authenticate('google-login', {
     scope: ['profile'],
     session: true,
   })
 );
 
+authRouter.get('/login/google/callback', (req: CustomRequest, res, next) => {
+  googlePassport.authenticate('google-login', (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (info && !user) {
+      req.session.info = info;
+      return res.redirect(`${BASECLIENTURL}`);
+    }
+    if (user) {
+      return req.logIn(user, (_err) => {
+        if (_err) {
+          return next(err);
+        }
+        return res.redirect(`${BASECLIENTURL}`);
+      });
+    }
+    const customError = boom.badImplementation('Error loginning');
+    return next(customError);
+  })(req, res, next);
+});
+
 authRouter.get(
-  '/login/google/callback',
-  googlePassport.authenticate('google', {
-    failureRedirect: BASECLIENTURL,
-    successRedirect: BASECLIENTURL,
-    failureFlash: true,
+  '/signup/google',
+  googlePassport.authenticate('google-signup', {
+    scope: ['profile', 'email'],
     session: true,
-  }),
-  (req, res) => {
-    res.json(req.user);
-  }
+  })
 );
+
+authRouter.get('/signup/google/callback', (req: CustomRequest, res, next) => {
+  googlePassport.authenticate('google-signup', (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (info && !user) {
+      req.session.info = info;
+      return res.redirect(`${BASECLIENTURL}`);
+    }
+    if (user) {
+      return req.logIn(user, (_err) => {
+        if (_err) {
+          return next(err);
+        }
+        return res.redirect(`${BASECLIENTURL}`);
+      });
+    }
+    const customError = boom.badImplementation('Error loginning');
+    return next(customError);
+  })(req, res, next);
+});
 
 export default authRouter;
