@@ -4,6 +4,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    "typeRoots": ["./node_modules/@types", "./src/types"],
     "strict": false,
     "sourceMap": true,
     "module": "CommonJS",

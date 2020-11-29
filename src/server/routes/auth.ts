@@ -6,17 +6,8 @@ import boom from '@hapi/boom';
 import { BASECLIENTURL } from '@/client/config';
 import { IUserDoc } from '@/types/user';
 import UserModel from '@/server/models/User';
-import * as session from 'express-session';
 
 const authRouter: express.Router = express.Router();
-
-interface CustomSession extends session.Session {
-  info: Record<string, unknown>;
-}
-
-export interface CustomRequest extends express.Request {
-  session: CustomSession;
-}
 
 passport.serializeUser((user: IUserDoc, done) => {
   done(null, user.googleId);
@@ -62,7 +53,7 @@ authRouter.get(
   })
 );
 
-authRouter.get('/login/google/callback', (req: CustomRequest, res, next) => {
+authRouter.get('/login/google/callback', (req, res, next) => {
   googlePassport.authenticate('google-login', (err, user, info) => {
     if (err) {
       return next(err);
@@ -92,7 +83,7 @@ authRouter.get(
   })
 );
 
-authRouter.get('/signup/google/callback', (req: CustomRequest, res, next) => {
+authRouter.get('/signup/google/callback', (req, res, next) => {
   googlePassport.authenticate('google-signup', (err, user, info) => {
     if (err) {
       return next(err);
