@@ -20,6 +20,9 @@ const Header: React.FC = () => {
       <a type="button" href={`${BASESERVERURL}/api/auth/login/google`}>
         login
       </a>
+      <a type="button" href={`${BASESERVERURL}/api/auth/signup/google`}>
+        signup
+      </a>
     </div>
   );
 };

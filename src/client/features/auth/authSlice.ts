@@ -20,9 +20,11 @@ const initialState: AuthState = {
 
 export const fetchData = createAsyncThunk('auth/fetchData', () =>
   axios
-    .get(`${baseServerUrl}/api/auth`)
+    .get(`${baseServerUrl}/api/user/`)
     .then((res) => res.data)
-    .catch((err) => Promise.reject(new Error(err.response.data.message)))
+    .catch((err) =>
+      Promise.reject(new Error(err.response.data.message || err.message))
+    )
 );
 
 const authSlice = createSlice({
