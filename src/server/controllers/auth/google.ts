@@ -1,6 +1,6 @@
 import { Strategy } from 'passport-google-oauth20';
 import passport from 'passport';
-import { GOOGLE, BASESERVERURL } from '@/config/index';
+import { GOOGLE, BASESERVERURL } from '@/server/config/index';
 import User from '@/server/models/User';
 import boom from '@hapi/boom';
 import { CustomGoogleProfile } from '@/types/user';

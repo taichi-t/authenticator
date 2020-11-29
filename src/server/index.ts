@@ -1,6 +1,6 @@
 import express from 'express';
 import { errorHandler, logErrors, notFound } from '@/server/middleware/error';
-import { SESSION } from '@/config/index';
+import { SESSION } from '@/server/config/index';
 
 import cors from 'cors';
 import passport from 'passport';

@@ -3,7 +3,7 @@ import * as express from 'express';
 import passport from 'passport';
 import googlePassport from '@/server/controllers/auth/google';
 import boom from '@hapi/boom';
-import { BASECLIENTURL } from '@/config';
+import { BASECLIENTURL } from '@/client/config';
 import { IUserDoc } from '@/types/user';
 import UserModel from '@/server/models/User';
 import * as session from 'express-session';
