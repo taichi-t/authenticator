@@ -1,22 +1,12 @@
 import * as express from 'express';
+import UserController from '@/server/controllers/user';
 import authRouter from '@/server/routes/auth';
 
 const apiRouter: express.Router = express.Router();
+const userController = new UserController();
 
 apiRouter.use('/auth', authRouter);
 
-apiRouter.use('/user', (req, res) => {
-  const { info } = req.session;
-  req.session.info = null;
-  if (!req.user) {
-    return res
-      .status(401)
-      .send(info || { message: 'You are not currently logged in' });
-  }
-  if (info) {
-    return res.status(401).send(info);
-  }
-  return res.json(req.user);
-});
+apiRouter.use('/user', userController.getUser);
 
 export default apiRouter;
