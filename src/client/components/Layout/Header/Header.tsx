@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { BASESERVERURL } from '@/config/index';
+import { BASESERVERURL } from '@/client/config/index';
 
 const Header: React.FC = () => {
   const handleLogout = async () => {

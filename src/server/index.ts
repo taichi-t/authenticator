@@ -1,9 +1,9 @@
 import express from 'express';
 import { errorHandler, logErrors, notFound } from '@/server/middleware/error';
-import { SESSION } from '@/config/index';
-
+import { SESSION } from '@/server/config/index';
+import configPassport from '@/server/config/passport/index';
 import cors from 'cors';
-import passport from 'passport';
+// import passport from 'passport';
 import expressSession from 'express-session';
 import apiRouter from './routes/index';
 import MongoDb from './middleware/connectDb';
@@ -31,8 +31,7 @@ if (env === 'production') {
 app.use(expressSession(session));
 
 // Passport
-app.use(passport.initialize());
-app.use(passport.session());
+configPassport(app);
 
 // Router
 app.use('/api', apiRouter);

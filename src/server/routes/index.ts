@@ -1,11 +1,11 @@
 import * as express from 'express';
-import authRouter, { CustomRequest } from '@/server/routes/auth';
+import authRouter from '@/server/routes/auth';
 
 const apiRouter: express.Router = express.Router();
 
 apiRouter.use('/auth', authRouter);
 
-apiRouter.use('/user', (req: CustomRequest, res) => {
+apiRouter.use('/user', (req, res) => {
   const { info } = req.session;
   req.session.info = null;
   if (!req.user) {
