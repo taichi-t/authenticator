@@ -38,4 +38,9 @@ export interface IUserDoc extends IUser, Document {
     profile: CustomGoogleProfile,
     cb: (err: Error | null, user: IUser | null) => void
   ) => void;
+
+  AuthWithEmail: (
+    email: string,
+    cb: (err: Error | null, user: IUser | null) => void
+  ) => void;
 }

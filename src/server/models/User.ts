@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema(
     googleId: { type: String, default: '' },
     firstName: { type: String, default: '' },
     lastName: { type: String, default: '' },
-    email: { type: String, default: '' },
+    email: { type: String, default: '', unique: true },
     profileUrl: { type: String, default: '' },
   },
   {
@@ -20,6 +20,12 @@ const UserSchema = new mongoose.Schema(
 
 UserSchema.methods.AuthWithGoogleId = function (googleId: string, cb) {
   UserModel.findOne({ googleId }, (err, user) => {
+    return cb(err, user);
+  });
+};
+
+UserSchema.methods.AuthWithEmail = function (email: string, cb) {
+  UserModel.findOne({ email }, (err, user) => {
     return cb(err, user);
   });
 };
