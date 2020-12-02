@@ -5,8 +5,8 @@ import configPassport from '@/server/config/passport/index';
 import cors from 'cors';
 // import passport from 'passport';
 import expressSession from 'express-session';
+import MongoDb from '@/server/db/index';
 import apiRouter from './routes/index';
-import MongoDb from './middleware/connectDb';
 
 const port = process.env.PORT || 8080;
 const env = process.env.NODE_ENV;

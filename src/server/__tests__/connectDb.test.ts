@@ -1,6 +1,6 @@
 import boom from '@hapi/boom';
 import mongoose from 'mongoose';
-import MongoDb from '../middleware/connectDb';
+import MongoDb from '../db/index';
 
 describe('connectDb', () => {
   let connection;

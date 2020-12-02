@@ -1,4 +1,3 @@
-export {};
 declare module 'express-session' {
   interface Session {
     info?: Record<string, unknown>;
@@ -7,3 +6,5 @@ declare module 'express-session' {
     info?: Record<string, unknown>;
   }
 }
+
+export {};

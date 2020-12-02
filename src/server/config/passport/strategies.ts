@@ -1,7 +1,7 @@
 import { Strategy } from 'passport-google-oauth20';
 // import * as passport from 'passport';
 import { GOOGLE, BASESERVERURL } from '@/server/config/index';
-import UserModel from '@/server/models/User';
+import UserModel from '@/server/db/models/User';
 import boom from '@hapi/boom';
 import { CustomGoogleProfile, IUserDoc } from '@/types/user';
 
@@ -12,11 +12,6 @@ const credentials = {
 
 class Strategies {
   user: IUserDoc;
-
-  credentials: {
-    clientID: string;
-    clientSecret: string;
-  };
 
   constructor() {
     this.user = new UserModel();
