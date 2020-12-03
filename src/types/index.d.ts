@@ -6,4 +6,9 @@ declare module 'express-session' {
       message: string;
     };
   }
+  interface Session {
+    info?: {
+      message: string;
+    };
+  }
 }

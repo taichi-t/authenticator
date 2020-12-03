@@ -18,9 +18,9 @@ const initialState: AuthState = {
   },
 };
 
-export const fetchData = createAsyncThunk('auth/fetchData', () =>
+export const fetchAuth = createAsyncThunk('auth/fetchAuth', () =>
   axios
-    .get(`${baseServerUrl}/api/user/`)
+    .get(`${baseServerUrl}/api/auth/`)
     .then((res) => res.data)
     .catch((err) =>
       Promise.reject(new Error(err.response.data.message || err.message))
@@ -44,21 +44,21 @@ const authSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchData.fulfilled.type]: (state, action) => {
+    [fetchAuth.fulfilled.type]: (state, action) => {
       state.auth = {
         data: action.payload,
         loading: false,
         error: undefined,
       };
     },
-    [fetchData.pending.type]: (state) => {
+    [fetchAuth.pending.type]: (state) => {
       state.auth = {
         data: undefined,
         loading: true,
         error: undefined,
       };
     },
-    [fetchData.rejected.type]: (state, action) => {
+    [fetchAuth.rejected.type]: (state, action) => {
       state.auth = {
         data: undefined,
         error: action.error,

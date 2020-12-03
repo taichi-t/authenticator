@@ -6,10 +6,11 @@ export interface IUser {
   lastName: string;
   email: string;
   profileUrl: string;
-  googleId: string;
+  prodiver: string;
 }
 
 export interface CustomGoogleProfile extends Profile {
+  provider: string;
   id: string;
   name: {
     familyName: string;
@@ -29,11 +30,6 @@ export interface CustomGoogleProfile extends Profile {
 }
 
 export interface IUserDoc extends IUser, Document {
-  AuthWithGoogleId: (
-    googleId: string,
-    cb: (err: Error | null, user: IUser | null) => void
-  ) => void;
-
   RegisterWithGoogleProfile: (
     profile: CustomGoogleProfile,
     cb: (err: Error | null, user: IUser | null) => void

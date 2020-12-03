@@ -17,6 +17,15 @@ class AuthController {
     });
   };
 
+  isAuthenticated: express.RequestHandler = (req, res) => {
+    if (req.isAuthenticated()) {
+      return res.json({ isAuthenticated: true });
+    }
+    return res.json({
+      isAuthenticated: false,
+    });
+  };
+
   googleLogin: express.RequestHandler = (req, res, next) => {
     passport.authenticate(
       'google-login',

@@ -9,6 +9,8 @@ authRouter.get('/logout', authController.logout);
 
 // google Auth
 
+authRouter.get('/', authController.isAuthenticated);
+
 authRouter.get(
   '/login/google',
   passport.authenticate('google-login', {

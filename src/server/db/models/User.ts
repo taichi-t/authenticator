@@ -5,7 +5,7 @@ const { String } = mongoose.Schema.Types;
 
 const UserSchema = new mongoose.Schema(
   {
-    googleId: { type: String, default: '' },
+    provider: { type: String, default: '' },
     firstName: { type: String, default: '' },
     lastName: { type: String, default: '' },
     email: { type: String, default: '', unique: true },
@@ -18,12 +18,6 @@ const UserSchema = new mongoose.Schema(
 
 // Methods
 
-UserSchema.methods.AuthWithGoogleId = function (googleId: string, cb) {
-  UserModel.findOne({ googleId }, (err, user) => {
-    return cb(err, user);
-  });
-};
-
 UserSchema.methods.AuthWithEmail = function (email: string, cb) {
   UserModel.findOne({ email }, (err, user) => {
     return cb(err, user);
@@ -34,9 +28,9 @@ UserSchema.methods.RegisterWithGoogleProfile = function (
   profile: CustomGoogleProfile,
   cb
 ) {
-  const { id, name, emails, photos } = profile;
+  const { name, emails, photos, provider } = profile;
   const newUser = new UserModel({
-    googleId: id,
+    provider,
     firstName: name.familyName,
     lastName: name.givenName,
     email: emails[0].value,
