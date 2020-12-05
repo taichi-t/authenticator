@@ -1,4 +1,9 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  PayloadAction,
+  SerializedError,
+  createAsyncThunk,
+} from '@reduxjs/toolkit';
 import axios from 'axios';
 import baseServerUrl from '@/client/lib/baseServerUrl';
 
@@ -6,7 +11,7 @@ export interface UserState {
   user: {
     data: Record<string, unknown>;
     loading: boolean;
-    error: string;
+    error: SerializedError;
   };
 }
 
@@ -35,7 +40,7 @@ const userSlice = createSlice({
       state.user.loading = payload;
     },
 
-    setErrors: (state, { payload }: PayloadAction<string>) => {
+    setErrors: (state, { payload }: PayloadAction<SerializedError>) => {
       state.user.error = payload;
     },
 
@@ -43,29 +48,52 @@ const userSlice = createSlice({
       state.user.data = payload;
     },
   },
-  extraReducers: {
-    [fetchUser.fulfilled.type]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchUser.pending, (state, action) => {
       state.user = {
         data: action.payload,
         loading: false,
         error: undefined,
       };
-    },
-    [fetchUser.pending.type]: (state) => {
+    });
+    builder.addCase(fetchUser.fulfilled, (state) => {
       state.user = {
         data: undefined,
         loading: true,
         error: undefined,
       };
-    },
-    [fetchUser.rejected.type]: (state, action) => {
+    });
+    builder.addCase(fetchUser.rejected, (state, action) => {
       state.user = {
         data: undefined,
         error: action.error,
         loading: false,
       };
-    },
+    });
   },
+  // {
+  //   [fetchUser.fulfilled.type]: (state, action) => {
+  //     state.user = {
+  //       data: action.payload,
+  //       loading: false,
+  //       error: undefined,
+  //     };
+  //   },
+  //   [fetchUser.pending.type]: (state) => {
+  //     state.user = {
+  //       data: undefined,
+  //       loading: true,
+  //       error: undefined,
+  //     };
+  //   },
+  //   [fetchUser.rejected.type]: (state, action) => {
+  //     state.user = {
+  //       data: undefined,
+  //       error: action.error,
+  //       loading: false,
+  //     };
+  //   },
+  // },
 });
 
 export const { setLoading, setErrors, setUser } = userSlice.actions;
