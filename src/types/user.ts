@@ -39,4 +39,9 @@ export interface IUserDoc extends IUser, Document {
     email: string,
     cb: (err: Error | null, user: IUser | null) => void
   ) => void;
+
+  GetUser: (
+    id: string,
+    cb: (err: Error | null, user: IUser | null) => void
+  ) => void;
 }

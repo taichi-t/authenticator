@@ -25,7 +25,7 @@ const initialState: UserState = {
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async () =>
   axios
-    .get(`${baseServerUrl}/api/user/`)
+    .get(`${baseServerUrl}/api/`)
     .then((res) => res.data)
     .catch((err) => {
       Promise.reject(new Error(err.response.data.message || err.message));

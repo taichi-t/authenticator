@@ -3,6 +3,7 @@ import passport from 'passport';
 import boom from '@hapi/boom';
 import { BASECLIENTURL } from '@/client/config';
 import { IUserDoc } from '@/types/user';
+import UserModel from '@/server/db/models/User';
 
 class AuthController {
   logout: express.RequestHandler = (req, res) => {
@@ -17,13 +18,34 @@ class AuthController {
     });
   };
 
-  isAuthenticated: express.RequestHandler = (req, res) => {
+  Authenticate: express.RequestHandler = (req, res, next) => {
     if (req.isAuthenticated()) {
-      return res.json({ isAuthenticated: true });
+      const user = new UserModel();
+      const id = req.user._id;
+      return user.GetUser(id, (err, _user) => {
+        if (err) {
+          return res
+            .status(401)
+            .send({ message: "Couldn't find your profile, please try again" });
+        }
+        const result = {
+          user: _user,
+          isAuthenticated: req.isAuthenticated(),
+        };
+        return res.json(result);
+      });
     }
-    return res.json({
-      isAuthenticated: false,
-    });
+    if (req.isUnauthenticated()) {
+      const { info } = req.session;
+      req.session.info = null;
+      return res
+        .status(401)
+        .send(info || { message: 'You are not currently logged in.' });
+    }
+    const customError = boom.badImplementation(
+      'Error implementing authentication.'
+    );
+    return next(customError);
   };
 
   googleLogin: express.RequestHandler = (req, res, next) => {
