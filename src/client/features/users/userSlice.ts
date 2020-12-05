@@ -49,14 +49,14 @@ const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchUser.pending, (state, action) => {
+    builder.addCase(fetchUser.fulfilled, (state, action) => {
       state.user = {
         data: action.payload,
         loading: false,
         error: undefined,
       };
     });
-    builder.addCase(fetchUser.fulfilled, (state) => {
+    builder.addCase(fetchUser.pending, (state) => {
       state.user = {
         data: undefined,
         loading: true,
@@ -71,29 +71,6 @@ const userSlice = createSlice({
       };
     });
   },
-  // {
-  //   [fetchUser.fulfilled.type]: (state, action) => {
-  //     state.user = {
-  //       data: action.payload,
-  //       loading: false,
-  //       error: undefined,
-  //     };
-  //   },
-  //   [fetchUser.pending.type]: (state) => {
-  //     state.user = {
-  //       data: undefined,
-  //       loading: true,
-  //       error: undefined,
-  //     };
-  //   },
-  //   [fetchUser.rejected.type]: (state, action) => {
-  //     state.user = {
-  //       data: undefined,
-  //       error: action.error,
-  //       loading: false,
-  //     };
-  //   },
-  // },
 });
 
 export const { setLoading, setErrors, setUser } = userSlice.actions;

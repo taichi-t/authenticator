@@ -49,17 +49,17 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchAuth.pending, (state, action) => {
+    builder.addCase(fetchAuth.fulfilled, (state, action) => {
       state.auth = {
         data: action.payload,
         loading: false,
         error: undefined,
       };
     });
-    builder.addCase(fetchAuth.fulfilled, (state) => {
+    builder.addCase(fetchAuth.pending, (state) => {
       state.auth = {
         data: undefined,
-        loading: true,
+        loading: false,
         error: undefined,
       };
     });
