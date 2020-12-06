@@ -32,10 +32,7 @@ export const fetchAuth = createAsyncThunk<{
 }>('auth/fetchAuth', () =>
   axios
     .get(`${baseServerUrl}/api/auth/`)
-    .then((res) => {
-      console.log(res.data);
-      return res.data;
-    })
+    .then((res) => res.data)
     .catch((err) =>
       Promise.reject(new Error(err.response.data.message || err.message))
     )
@@ -70,7 +67,7 @@ const authSlice = createSlice({
       state.auth = {
         isAuthenticated: false,
         user: undefined,
-        loading: false,
+        loading: true,
         error: undefined,
       };
     });
