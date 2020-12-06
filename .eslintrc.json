@@ -22,6 +22,12 @@
     "import/resolver": "typescript"
   },
   "rules": {
+    "@typescript-eslint/no-empty-interface": [
+      "error",
+      {
+        "allowSingleExtends": true
+      }
+    ],
     "no-underscore-dangle": 0,
     "func-names": "off",
     "no-param-reassign": ["error", { "props": false }],

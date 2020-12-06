@@ -6,10 +6,12 @@ import {
 } from '@reduxjs/toolkit';
 import axios from 'axios';
 import baseServerUrl from '@/client/lib/baseServerUrl';
+import { IUserFrontnd } from '@/types/user';
 
 export interface AuthState {
   auth: {
-    data: Record<string, unknown>;
+    isAuthenticated: boolean;
+    user: IUserFrontnd | undefined;
     loading: boolean;
     error: SerializedError;
   };
@@ -17,13 +19,17 @@ export interface AuthState {
 
 const initialState: AuthState = {
   auth: {
-    data: undefined,
+    isAuthenticated: false,
+    user: undefined,
     loading: true,
     error: undefined,
   },
 };
 
-export const fetchAuth = createAsyncThunk('auth/fetchAuth', () =>
+export const fetchAuth = createAsyncThunk<{
+  user: IUserFrontnd;
+  isAuthenticated: boolean;
+}>('auth/fetchAuth', () =>
   axios
     .get(`${baseServerUrl}/api/auth/`)
     .then((res) => res.data)
@@ -44,28 +50,31 @@ const authSlice = createSlice({
       state.auth.error = payload;
     },
 
-    setAuth: (state, { payload }: PayloadAction<Record<string, unknown>>) => {
-      state.auth.data = payload;
+    setAuth: (state, { payload }: PayloadAction<IUserFrontnd>) => {
+      state.auth.user = payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAuth.fulfilled, (state, action) => {
       state.auth = {
-        data: action.payload,
+        isAuthenticated: action.payload.isAuthenticated,
+        user: action.payload.user,
         loading: false,
         error: undefined,
       };
     });
     builder.addCase(fetchAuth.pending, (state) => {
       state.auth = {
-        data: undefined,
-        loading: false,
+        isAuthenticated: false,
+        user: undefined,
+        loading: true,
         error: undefined,
       };
     });
     builder.addCase(fetchAuth.rejected, (state, action) => {
       state.auth = {
-        data: undefined,
+        isAuthenticated: false,
+        user: undefined,
         error: action.error,
         loading: false,
       };

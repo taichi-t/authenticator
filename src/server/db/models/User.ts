@@ -40,6 +40,12 @@ UserSchema.methods.RegisterWithGoogleProfile = function (
     return cb(err, user);
   });
 };
+
+UserSchema.methods.GetUser = function (id: string, cb) {
+  UserModel.findById(id, '-_id', (err, user) => {
+    return cb(err, user);
+  });
+};
 // Statics
 
 UserSchema.static({});
