@@ -9,6 +9,28 @@ export interface IUser {
   prodiver: string;
 }
 
+export interface IUserFrontnd extends IUser {
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IUserDoc extends IUser, Document {
+  RegisterWithGoogleProfile: (
+    profile: CustomGoogleProfile,
+    cb: (err: Error | null, user: IUser | null) => void
+  ) => void;
+
+  AuthWithEmail: (
+    email: string,
+    cb: (err: Error | null, user: IUser | null) => void
+  ) => void;
+
+  GetUser: (
+    id: string,
+    cb: (err: Error | null, user: IUser | null) => void
+  ) => void;
+}
+
 export interface CustomGoogleProfile extends Profile {
   provider: string;
   id: string;
@@ -27,21 +49,4 @@ export interface CustomGoogleProfile extends Profile {
       verified: boolean;
     }
   ];
-}
-
-export interface IUserDoc extends IUser, Document {
-  RegisterWithGoogleProfile: (
-    profile: CustomGoogleProfile,
-    cb: (err: Error | null, user: IUser | null) => void
-  ) => void;
-
-  AuthWithEmail: (
-    email: string,
-    cb: (err: Error | null, user: IUser | null) => void
-  ) => void;
-
-  GetUser: (
-    id: string,
-    cb: (err: Error | null, user: IUser | null) => void
-  ) => void;
 }
