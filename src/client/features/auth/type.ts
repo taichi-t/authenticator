@@ -1,5 +1,5 @@
-import { IUserFrontnd } from '@/types/user';
 import { SerializedError } from '@reduxjs/toolkit';
+import { IUserFrontnd } from '@/types/user';
 
 export interface AuthState {
   auth: {
@@ -8,13 +8,4 @@ export interface AuthState {
     loading: boolean;
     error: SerializedError;
   };
-}
-
-export interface FetchAuthResponse {
-  isAuthenticated: boolean;
-  user: IUserFrontnd;
-}
-
-export interface IErrorResponse {
-  message: string;
 }
