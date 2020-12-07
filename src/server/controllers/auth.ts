@@ -10,11 +10,10 @@ class AuthController {
     req.logout();
     req.session.destroy((err: Error) => {
       if (err) {
-        const customError = boom.badGateway('Error deleting session', err);
-        res.send(customError);
+        res.status(404).send({ message: 'Log out failed, please try again.' });
       }
       res.clearCookie('connect.sid');
-      res.redirect(`${BASECLIENTURL}`);
+      res.status(200).send({ message: 'Successfully logged out.' });
     });
   };
 

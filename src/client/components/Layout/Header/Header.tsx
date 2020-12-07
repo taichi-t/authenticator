@@ -1,15 +1,16 @@
 import * as React from 'react';
-import axios from 'axios';
 import { BASESERVERURL } from '@/client/config/index';
+import authApi from '@/client/api/auth';
 
 const Header: React.FC = () => {
   const handleLogout = async () => {
-    try {
-      const res = await axios.get('/api/auth/logout');
-      console.log(res);
-    } catch (err) {
-      console.error(err);
-    }
+    await authApi.logout((res, err) => {
+      if (res) {
+        window.location.reload();
+      } else {
+        console.error(err);
+      }
+    });
   };
 
   return (

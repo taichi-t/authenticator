@@ -1,5 +1,5 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit';
-import { AuthState } from './types';
+import { AuthState } from './type';
 import { fetchAuth } from './asyncActions';
 
 export const authExtraReducers = (
