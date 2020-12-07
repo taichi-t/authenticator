@@ -2,7 +2,8 @@ import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from '@/client/components/Home/Home';
 import Layout from '@/client/components/Layout/Layout';
-import { authSelector, fetchAuth } from '@/client/features/auth/authSlice';
+import { authSelector } from '@/client/features/auth/slice';
+import { fetchAuth } from '@/client/features/auth/asyncActions';
 import { useSelector, useDispatch } from 'react-redux';
 
 const App: React.FC = () => {
