@@ -9,3 +9,12 @@ export interface AuthState {
     error: SerializedError;
   };
 }
+
+export interface FetchAuthResponse {
+  isAuthenticated: boolean;
+  user: IUserFrontnd;
+}
+
+export interface IErrorResponse {
+  message: string;
+}
