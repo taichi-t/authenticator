@@ -83,9 +83,7 @@ class Strategies {
   };
 
   deserialize = (id: string, done) => {
-    console.log(id);
     this.user.authWithId(id, (_err, _user) => {
-      console.log(_user);
       if (_err) {
         const customError = boom.badImplementation('Server Error.', _err);
         return done(customError, false);
