@@ -1,19 +1,19 @@
 {
-  "name": "word_cards",
+  "name": "authenticater",
   "version": "1.0.0",
-  "description": "word cards",
+  "description": "authenticate with google",
   "main": "./dist/server.js",
   "dependencies": {
     "@hapi/boom": "^9.1.0",
-    "@reduxjs/toolkit": "^1.4.0",
-    "axios": "^0.21.0",
+    "@reduxjs/toolkit": "^1.6.0",
+    "axios": "^0.21.1",
     "cors": "^2.8.5",
     "dotenv-webpack": "^5.1.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "hard-source-webpack-plugin": "^0.13.1",
     "html-webpack-plugin": "^4.5.0",
-    "mongoose": "^5.10.14",
+    "mongoose": "^5.13.1",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
     "react": "^17.0.1",
@@ -31,7 +31,6 @@
     "@types/express-session": "^1.17.3",
     "@types/html-webpack-plugin": "^3.2.4",
     "@types/jest": "^26.0.15",
-    "@types/mongoose": "^5.10.0",
     "@types/node": "^14.14.6",
     "@types/passport": "^1.0.4",
     "@types/passport-google-oauth20": "^2.0.4",
@@ -69,13 +68,16 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "watch:server": "webpack --config ./webpack.server.config.ts -w & nodemon ./dist/server.js",
+    "watch:server": "webpack --config ./webpack.server.config.ts -w & nodemon --config ./nodemon.json",
     "watch:client": "webpack-dev-server --config ./webpack.client.config.ts --hot",
     "dev": "npm-run-all --parallel watch:*",
     "built": "webpack",
     "test": "jest --coverage",
     "lint": "eslint --ext .ts,.tsx ./src",
-    "clean": "rimraf ./node_modules/.cache/hard-source"
+    "clean": "rimraf ./node_modules/.cache/hard-source",
+    "type:client": "tsc --noEmit --project ./tsconfig.client.json",
+    "type:server": "tsc --noEmit --project ./tsconfig.server.json",
+    "type": "npm-run-all --parallel type:*"
   },
   "author": "Taichi Tsujioka",
   "license": "ISC"

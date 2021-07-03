@@ -4,12 +4,10 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "typeRoots": ["./node_modules/@types", "./src/types"],
     "strict": false,
     "sourceMap": true,
     "module": "CommonJS",
     "target": "es5",
-    "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "moduleResolution": "node"

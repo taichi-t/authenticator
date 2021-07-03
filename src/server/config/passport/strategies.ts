@@ -1,5 +1,4 @@
 import { Strategy } from 'passport-google-oauth20';
-// import * as passport from 'passport';
 import { GOOGLE, BASESERVERURL } from '@/server/config/index';
 import UserModel from '@/server/db/models/User';
 import boom from '@hapi/boom';
@@ -24,7 +23,7 @@ class Strategies {
     },
     (accessToken, refreshToken, profile: CustomGoogleProfile, done) => {
       const { emails } = profile;
-      this.user.AuthWithEmail(emails[0].value, (_err, _user) => {
+      this.user.authWithEmail(emails[0].value, (_err, _user) => {
         if (_err) {
           const customError = boom.badImplementation('Server Error.', _err);
           return done(customError, false);
@@ -46,7 +45,7 @@ class Strategies {
     },
     (accessToken, refreshToken, profile: CustomGoogleProfile, done) => {
       const { emails } = profile;
-      this.user.AuthWithEmail(emails[0].value, (_authErr, _user) => {
+      this.user.authWithEmail(emails[0].value, (_authErr, _user) => {
         if (_authErr) {
           const customError = boom.badImplementation('Server Error.', _authErr);
           return done(customError, false);
@@ -58,7 +57,7 @@ class Strategies {
           });
         }
         if (!_authErr && !_user) {
-          return this.user.RegisterWithGoogleProfile(
+          return this.user.registerWithGoogleProfile(
             profile,
             (_registerErr, _newUser) => {
               if (_registerErr) {
@@ -80,11 +79,13 @@ class Strategies {
   );
 
   serialize = (user: IUserDoc, done) => {
-    done(null, user.email);
+    done(null, user._id);
   };
 
-  deserialize = (email: string, done) => {
-    this.user.AuthWithEmail(email, (_err, _user) => {
+  deserialize = (id: string, done) => {
+    console.log(id);
+    this.user.authWithId(id, (_err, _user) => {
+      console.log(_user);
       if (_err) {
         const customError = boom.badImplementation('Server Error.', _err);
         return done(customError, false);

@@ -1,11 +1,6 @@
 {
-  "ignore":
-  [
-    "**/*.test.ts",
-    "node_modules"
-  ],
+  "ignore": ["**/*.test.ts", "node_modules"],
   "restartable": "rs",
-  "watch": [
-    "dist"
-  ]
+  "watch": ["./dist/server.js"],
+  "delay": 2500
 }

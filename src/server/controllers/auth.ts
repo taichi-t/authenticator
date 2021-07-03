@@ -17,11 +17,11 @@ class AuthController {
     });
   };
 
-  Authenticate: express.RequestHandler = (req, res, next) => {
+  authenticate: express.RequestHandler = (req, res, next) => {
     if (req.isAuthenticated()) {
       const user = new UserModel();
       const id = req.user._id;
-      return user.GetUser(id, (err, _user) => {
+      return user.getUser(id, (err, _user) => {
         if (err) {
           return res
             .status(401)
