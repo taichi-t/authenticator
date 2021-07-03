@@ -12,6 +12,7 @@ class AuthController {
       if (err) {
         res.status(404).send({ message: 'Log out failed, please try again.' });
       }
+
       res.clearCookie('connect.sid');
       res.status(200).send({ message: 'Successfully logged out.' });
     });

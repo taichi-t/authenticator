@@ -14,7 +14,7 @@ const App: React.FC = () => {
     dispatch(fetchAuth());
   }, [dispatch]);
 
-  console.log({ auth });
+  // console.log({ auth });
 
   return (
     <BrowserRouter>
