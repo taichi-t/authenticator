@@ -9,7 +9,7 @@ authRouter.get('/logout', authController.logout);
 
 // google Auth
 
-authRouter.get('/', authController.Authenticate);
+authRouter.get('/', authController.authenticate);
 
 authRouter.get(
   '/login/google',

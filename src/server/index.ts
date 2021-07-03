@@ -3,7 +3,6 @@ import { errorHandler, logErrors, notFound } from '@/server/middleware/error';
 import { SESSION } from '@/server/config/index';
 import configPassport from '@/server/config/passport/index';
 import cors from 'cors';
-// import passport from 'passport';
 import expressSession from 'express-session';
 import MongoDb from '@/server/db/index';
 import apiRouter from './routes/index';
@@ -20,7 +19,7 @@ app.use(cors());
 // Express session
 const session = {
   secret: SESSION.secret,
-  cookie: { secure: false, maxAge: 60000 },
+  cookie: { secure: false, maxAge: null },
   resave: false,
   saveUninitialized: false,
 };

@@ -15,17 +15,22 @@ export interface IUserFrontnd extends IUser {
 }
 
 export interface IUserDoc extends IUser, Document {
-  RegisterWithGoogleProfile: (
+  registerWithGoogleProfile: (
     profile: CustomGoogleProfile,
     cb: (err: Error | null, user: IUser | null) => void
   ) => void;
 
-  AuthWithEmail: (
+  authWithEmail: (
     email: string,
     cb: (err: Error | null, user: IUser | null) => void
   ) => void;
 
-  GetUser: (
+  authWithId: (
+    id: string,
+    cb: (err: Error | null, user: IUser | null) => void
+  ) => void;
+
+  getUser: (
     id: string,
     cb: (err: Error | null, user: IUser | null) => void
   ) => void;

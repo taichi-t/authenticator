@@ -6,7 +6,7 @@ const Header: React.FC = () => {
   const handleLogout = async () => {
     await authApi.logout((res, err) => {
       if (res) {
-        window.location.reload();
+        console.log(res);
       } else {
         console.error(err);
       }

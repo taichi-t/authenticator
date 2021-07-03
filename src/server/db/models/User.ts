@@ -18,13 +18,19 @@ const UserSchema = new mongoose.Schema(
 
 // Methods
 
-UserSchema.methods.AuthWithEmail = function (email: string, cb) {
+UserSchema.methods.authWithEmail = function (email: string, cb) {
   UserModel.findOne({ email }, (err, user) => {
     return cb(err, user);
   });
 };
 
-UserSchema.methods.RegisterWithGoogleProfile = function (
+UserSchema.methods.authWithId = function (id: string, cb) {
+  UserModel.findById(id, (err, user) => {
+    return cb(err, user);
+  });
+};
+
+UserSchema.methods.registerWithGoogleProfile = function (
   profile: CustomGoogleProfile,
   cb
 ) {
@@ -41,8 +47,8 @@ UserSchema.methods.RegisterWithGoogleProfile = function (
   });
 };
 
-UserSchema.methods.GetUser = function (id: string, cb) {
-  UserModel.findById(id, '-_id', (err, user) => {
+UserSchema.methods.getUser = function (id: string, cb) {
+  UserModel.findById({ _id: id }, (err, user) => {
     return cb(err, user);
   });
 };
