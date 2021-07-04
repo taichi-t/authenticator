@@ -33,12 +33,11 @@ jobs:
           
       - name: Deploy Server
         run: |
-          heroku config:add \
+          heroku config:add —a ${{secrets.HEROKU_APP_NAME_STAGING}} \
           MONGODB_URL=${{secrets.MONGODB_URL}} \
           GOOGLE_CLIENTID=${{secrets.GOOGLE_CLIENTID}} \
           GOOGLE_SECRET=${{secrets.GOOGLE_SECRET}} \
-          SESSION_SECRET=${{secrets.SESSION_SECRET}} \
-          —a ${{secrets.HEROKU_APP_NAME_STAGING}} \
+          SESSION_SECRET=${{secrets.SESSION_SECRET}}
           git subtree push —prefix ./dist staging master
 
       - name: Deploy Client       
