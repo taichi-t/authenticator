@@ -19,16 +19,19 @@ jobs:
           node-version: 14.x
 
       - name: Build
-        run: npm ci 
-        run: npm run type
-        run: npm run build --if-present
+        run: |
+          npm ci 
+          npm run type
+          npm run build --if-present
 
-      - name: Deploy Server
+      - name: Login Heroku
         uses: AkhileshNS/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_email: ${{secrets.EMAIL}}
           justlogin: true
+          
+      - name: Deploy Server
         run: |
           heroku config:add \
           MONGODB_URL=${{secrets.MONGODB_URL}} \
