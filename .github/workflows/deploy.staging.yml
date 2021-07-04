@@ -30,7 +30,7 @@ jobs:
           heroku_email: ${{secrets.EMAIL}}
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
           branch: deployment/staging
-          appdir: ./dist
+          appdir: dist
       - name: Deploy Client       
         uses: amondnet/vercel-action@v20
         with:
