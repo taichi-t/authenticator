@@ -38,7 +38,7 @@ jobs:
           GOOGLE_CLIENTID=${{secrets.GOOGLE_CLIENTID}} \
           GOOGLE_SECRET=${{secrets.GOOGLE_SECRET}} \
           SESSION_SECRET=${{secrets.SESSION_SECRET}} \
-          —app ${{secrets.HEROKU_APP_NAME_STAGING}} \
+          —a ${{secrets.HEROKU_APP_NAME_STAGING}} \
           git subtree push —prefix ./dist staging master
 
       - name: Deploy Client       
