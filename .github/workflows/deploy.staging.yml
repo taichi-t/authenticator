@@ -28,7 +28,7 @@ jobs:
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_email: ${{secrets.EMAIL}}
-          heroku_app_name: authenticator
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
           branch: deployment/staging
           appdir: ./dist
       - name: Deploy Client       
