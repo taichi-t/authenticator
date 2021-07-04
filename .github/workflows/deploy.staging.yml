@@ -38,7 +38,7 @@ jobs:
           GOOGLE_CLIENTID=${{secrets.GOOGLE_CLIENTID}} \
           GOOGLE_SECRET=${{secrets.GOOGLE_SECRET}} \
           SESSION_SECRET=${{secrets.SESSION_SECRET}}
-          git subtree push —-prefix ./dist staging master
+          git subtree push --prefix dist staging master
 
       - name: Deploy Client       
         uses: amondnet/vercel-action@v20
