@@ -5,22 +5,25 @@ on:
     branches: [deployment/staging]
 
 jobs:
-  build: 
+  build-and-deploy:
+    name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
+    
       - name: Checkout
         uses: actions/checkout@v2
+        
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
-      - run: npm ci 
-      - run: npm run type
-      - run: npm run build --if-present
-  deploy:  
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
+          
+      - name: npm install, build, and test
+        run: |
+          npm ci 
+          npm run type
+          npm run build --if-present
+
       - name: Deploy Server
         uses: AkhileshNS/heroku-deploy@v3.12.12
         with:
@@ -29,6 +32,7 @@ jobs:
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
           branch: deployment/staging
           appdir: dist
+          
       - name: Deploy Client       
         uses: amondnet/vercel-action@v20
         with:
