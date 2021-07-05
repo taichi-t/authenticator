@@ -74,6 +74,7 @@
     "build:server": "webpack --config ./webpack.server.config.ts",
     "build:client": "webpack --config ./webpack.client.config.ts",
     "built": "npm-run-all --parallel build:*",
+    "heroku-postbuild": "npm run-script build:server",
     "test": "jest --coverage",
     "lint": "eslint --ext .ts,.tsx ./src",
     "clean": "rimraf ./node_modules/.cache/hard-source",
