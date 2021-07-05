@@ -32,7 +32,7 @@ jobs:
           justlogin: true
       - name: Deploy Server
         run: |
-          git push https://git.heroku.com/${{secrets.HEROKU_API_NAME_STAGING}}.git deployment/staging:master
+          git push https://git.heroku.com/${{secrets.HEROKU_APP_NAME_STAGING}}.git deployment/staging:master
 
       - name: Deploy Client
         uses: amondnet/vercel-action@v20
