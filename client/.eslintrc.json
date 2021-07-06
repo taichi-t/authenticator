@@ -1,0 +1,66 @@
+{
+  "root": false,
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "airbnb-typescript",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint",
+    "prettier/react"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "project": "tsconfig.json"
+  },
+  "settings": {
+    "import/resolver": "typescript"
+  },
+  "rules": {
+    "@typescript-eslint/no-empty-interface": [
+      "error",
+      {
+        "allowSingleExtends": true
+      }
+    ],
+    "no-underscore-dangle": 0,
+    "func-names": "off",
+    "no-param-reassign": ["error", { "props": false }],
+    "react/require-default-props": [
+      "error",
+      {
+        "ignoreFunctionalComponents": true
+      }
+    ],
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "no-console": "off",
+    "import/extensions": [
+      "error",
+      {
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [".tsx"]
+      }
+    ],
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": [
+      "error",
+      {
+        "variables": false,
+        "functions": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+node_modules
+.vscode
+*.env
+
+public/
+
+coverage*
+.vercel
