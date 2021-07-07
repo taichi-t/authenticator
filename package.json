@@ -21,7 +21,6 @@
     "test:server": "npm run test --prefix server",
     "test:client": "npm run test --prefix client",
     "test": "npm-run-all --parallel test:*"
-
   },
   "author": "Taichi Tsujioka",
   "license": "ISC"
