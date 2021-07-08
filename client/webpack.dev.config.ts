@@ -2,44 +2,12 @@ import path from 'path';
 import merge from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HardSourceWebpackPlugin from 'hard-source-webpack-plugin';
+import Dotenv from 'dotenv-webpack';
 import { Configuration } from 'webpack';
+import common from './webpack.common.config';
 
-const clientConfig = merge<Configuration>({
+const clientConfig = merge<Configuration>(common, {
   mode: 'development',
-  target: 'web',
-  entry: './index.tsx',
-  output: {
-    filename: 'app.js',
-    path: path.resolve(__dirname, 'public'),
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './'),
-    },
-    extensions: ['.ts', '.tsx', '.js', '.json'],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: [
-          {
-            loader: 'ts-loader',
-            options: {
-              configFile: 'tsconfig.json',
-            },
-          },
-        ],
-        exclude: /node_modules/,
-        include: path.resolve(__dirname, '/'),
-      },
-      {
-        test: /\.html$/,
-        use: 'html-loader',
-        exclude: /node_modules/,
-      },
-    ],
-  },
   devServer: {
     port: 3000,
     contentBase: path.resolve(__dirname, 'public/'),
@@ -63,6 +31,7 @@ const clientConfig = merge<Configuration>({
   plugins: [
     new HtmlWebpackPlugin({ template: './index.html' }),
     new HardSourceWebpackPlugin(),
+    new Dotenv(),
   ],
   devtool: 'inline-source-map',
 });
