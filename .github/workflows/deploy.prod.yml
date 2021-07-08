@@ -1,0 +1,47 @@
+name: Deploy app
+
+on:
+  push:
+    branches: [deployment/production]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm ci --prefix server
+          npm ci --prefix client
+
+      - name: Lint
+        run: |
+          npm run lint
+
+      - name: Typecheck
+        run: |
+          npm run type
+
+      - name: Test
+        run: |
+          npm run test:server
+
+      - name: Login Heroku
+        uses: AkhileshNS/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_email: ${{secrets.EMAIL}}
+          justlogin: true
+      - name: Deploy Server
+        run: |
+          git push https://git.heroku.com/${{secrets.HEROKU_APP_NAME}}.git `git subtree split --prefix server deployment/production`:master --force
