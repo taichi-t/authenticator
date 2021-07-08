@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BASE_SERVER_URL } from '@/config/index';
+import getConfig from '@/config/index';
 import authApi from '@/api/auth';
 
 const Header: React.FC = () => {
@@ -18,10 +18,16 @@ const Header: React.FC = () => {
       <button type="button" onClick={() => handleLogout()}>
         logout
       </button>
-      <a type="button" href={`${BASE_SERVER_URL}/api/auth/login/google`}>
+      <a
+        type="button"
+        href={`${getConfig().API_ENDPOINT}/api/auth/login/google`}
+      >
         login
       </a>
-      <a type="button" href={`${BASE_SERVER_URL}/api/auth/signup/google`}>
+      <a
+        type="button"
+        href={`${getConfig().API_ENDPOINT}/api/auth/signup/google`}
+      >
         signup
       </a>
     </div>
