@@ -1,5 +1,5 @@
 import Axios, { AxiosError, AxiosInstance } from 'axios';
-import { BASE_SERVER_URL } from '@/config/index';
+import getConfig from '@/config';
 import { User } from '@/types/user';
 
 type LogoutResponse = {
@@ -20,7 +20,7 @@ class AuthApi {
 
   constructor() {
     this.axios = Axios.create({
-      baseURL: BASE_SERVER_URL,
+      baseURL: getConfig().API_ENDPOINT,
     });
   }
 
