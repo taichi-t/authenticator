@@ -57,14 +57,14 @@ class AuthController {
         }
         if (info && !user) {
           req.session.info = info;
-          return res.redirect(`${BASE_CLIENT_URL}`);
+          return res.redirect(`${BASE_CLIENT_URL}/`);
         }
         if (user) {
           return req.logIn(user, (_err) => {
             if (_err) {
               return next(err);
             }
-            return res.redirect(`${BASE_CLIENT_URL}`);
+            return res.redirect(`${BASE_CLIENT_URL}/`);
           });
         }
         const customError = boom.badImplementation('Error loginning');
@@ -80,14 +80,14 @@ class AuthController {
       }
       if (info && !user) {
         req.session.info = info;
-        return res.redirect(`${BASE_CLIENT_URL}`);
+        return res.redirect(`${BASE_CLIENT_URL}/`);
       }
       if (user) {
         return req.logIn(user, (_err) => {
           if (_err) {
             return next(err);
           }
-          return res.redirect(`${BASE_CLIENT_URL}`);
+          return res.redirect(`${BASE_CLIENT_URL}/`);
         });
       }
       const customError = boom.badImplementation('Error loginning');
