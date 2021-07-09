@@ -14,7 +14,7 @@ const getConfig = () => {
     process.env.NODE_ENV === 'development'
   ) {
     return {
-      API_ENDPOINT: 'http://localhost:3000',
+      API_ENDPOINT: 'http://localhost:8080',
     };
   }
   throw new Error('unexpected env');
