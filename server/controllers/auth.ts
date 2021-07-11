@@ -60,7 +60,7 @@ class AuthController {
           return res.redirect(`${BASE_CLIENT_URL}/`);
         }
         if (user) {
-          return req.logIn(user, (_err) => {
+          return req.login(user, (_err) => {
             if (_err) {
               return next(err);
             }

@@ -1,8 +1,3 @@
-export const BASE_SERVER_URL =
-  process.env.NODE_ENV === 'production'
-    ? process.env.SERVER_URL
-    : `http://localhost:${process.env.PORT}`;
-
 export const BASE_CLIENT_URL =
   process.env.NODE_ENV === 'production'
     ? process.env.CLIENT_URL
@@ -15,4 +10,4 @@ export const GOOGLE = {
 
 export const SESSION = { secret: process.env.SESSION_SECRET };
 
-export default { GOOGLE, BASE_SERVER_URL, SESSION };
+export default { GOOGLE, SESSION };

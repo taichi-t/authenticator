@@ -21,6 +21,7 @@ class AuthApi {
   constructor() {
     this.axios = Axios.create({
       baseURL: getConfig().API_ENDPOINT,
+      withCredentials: true,
     });
   }
 
@@ -38,7 +39,7 @@ class AuthApi {
 
   fetchAuth = async () =>
     this.axios
-      .get<FetchAuthResponse>('/api/auth/')
+      .get<FetchAuthResponse>('/api/auth')
       .then((res) => res.data)
       .catch((err: AxiosError<IErrorResponse>) =>
         Promise.reject(new Error(err.response.data.message || err.message))

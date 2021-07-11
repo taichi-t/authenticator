@@ -1,6 +1,6 @@
 import express from 'express';
 import { errorHandler, logErrors, notFound } from '@/middleware/error';
-import { SESSION } from '@/config/index';
+import { BASE_CLIENT_URL, SESSION } from '@/config/index';
 import configPassport from '@/config/passport/index';
 import cors from 'cors';
 import expressSession from 'express-session';
@@ -11,10 +11,17 @@ const port = process.env.PORT || 8080;
 const env = process.env.NODE_ENV;
 const app: express.Application = express();
 
+// Cors
+app.use(
+  cors({
+    credentials: true,
+    origin: BASE_CLIENT_URL,
+  })
+);
+
 // Express body parser
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(express.json());
 
 // Express session
 const session = {

@@ -1,5 +1,5 @@
 import { Strategy } from 'passport-google-oauth20';
-import { GOOGLE, BASE_SERVER_URL } from '@/config';
+import { GOOGLE } from '@/config';
 import UserModel from '@/db/models/User';
 import boom from '@hapi/boom';
 import { CustomGoogleProfile, IUserDoc } from '@/types/user';
@@ -19,7 +19,7 @@ class Strategies {
   googleLogin = new Strategy(
     {
       ...credentials,
-      callbackURL: `${BASE_SERVER_URL}/api/auth/login/google/callback`,
+      callbackURL: `/api/auth/login/google/callback`,
     },
     (accessToken, refreshToken, profile: CustomGoogleProfile, done) => {
       const { emails } = profile;
@@ -41,7 +41,7 @@ class Strategies {
   googleSignup = new Strategy(
     {
       ...credentials,
-      callbackURL: `${BASE_SERVER_URL}/api/auth/signup/google/callback`,
+      callbackURL: `/api/auth/signup/google/callback`,
     },
     (accessToken, refreshToken, profile: CustomGoogleProfile, done) => {
       const { emails } = profile;
@@ -79,11 +79,11 @@ class Strategies {
   );
 
   serialize = (user: IUserDoc, done) => {
-    done(null, user._id);
+    done(null, user.email);
   };
 
-  deserialize = (id: string, done) => {
-    this.user.authWithId(id, (_err, _user) => {
+  deserialize = (email: string, done) => {
+    this.user.authWithEmail(email, (_err, _user) => {
       if (_err) {
         const customError = boom.badImplementation('Server Error.', _err);
         return done(customError, false);
