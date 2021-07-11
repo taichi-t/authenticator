@@ -19,7 +19,7 @@ app.use(cors());
 // Express session
 const session = {
   secret: SESSION.secret,
-  cookie: { secure: false, maxAge: null },
+  cookie: { secure: false, maxAge: 6000 },
   resave: false,
   saveUninitialized: false,
 };
