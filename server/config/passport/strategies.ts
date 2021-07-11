@@ -67,7 +67,6 @@ class Strategies {
                 );
                 return done(customError, undefined);
               }
-
               return done(null, _newUser);
             }
           );
