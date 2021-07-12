@@ -24,6 +24,7 @@ const Header: React.FC = () => {
       >
         login
       </a>
+
       <a
         type="button"
         href={`${getConfig().API_ENDPOINT}/api/auth/signup/google`}
