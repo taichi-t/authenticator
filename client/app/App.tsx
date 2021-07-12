@@ -5,6 +5,7 @@ import Layout from '@/components/Layout/Layout';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '@/features/auth/slice';
 import { fetchAuth } from '@/features/auth/asyncActions';
+import GlobalStyles from '@/GlobalStyles';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const App: React.FC = () => {
 
   return (
     <BrowserRouter>
+      <GlobalStyles />
       <Layout>
         <Switch>
           <Route path="/" exact component={Home} />
