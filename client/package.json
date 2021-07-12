@@ -48,7 +48,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "watch": "webpack-dev-server --config ./webpack.dev.config.ts --hot　DEPLOY_ENV=foo ",
+    "watch": "webpack-dev-server --config ./webpack.dev.config.ts --hot",
     "build": "webpack --config ./webpack.build.config.ts",
     "lint": "eslint . --ext .ts,.tsx --config ./.eslintrc.json",
     "clean": "rimraf ./node_modules/.cache/hard-source",

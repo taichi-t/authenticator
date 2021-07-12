@@ -23,5 +23,8 @@
     "test": "npm-run-all --parallel test:*"
   },
   "author": "Taichi Tsujioka",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "server": "file:server"
+  }
 }
