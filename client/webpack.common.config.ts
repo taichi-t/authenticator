@@ -35,6 +35,10 @@ const clientConfig = merge<Configuration>({
         use: 'html-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      },
     ],
   },
 });

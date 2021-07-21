@@ -14,5 +14,5 @@
     "moduleResolution": "node"
   },
   "exclude": ["node_modules", "public"],
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": ["**/*.ts", "**/*.tsx", "extra.d.ts"]
 }
