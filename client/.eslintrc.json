@@ -18,7 +18,7 @@
   },
   "parserOptions": {
     "sourceType": "module",
-    "project": "tsconfig.json"
+    "project": ["./tsconfig.json"]
   },
   "settings": {
     "import/resolver": "typescript"
