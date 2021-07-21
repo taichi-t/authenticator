@@ -15,8 +15,6 @@ const App: React.FC = () => {
     dispatch(fetchAuth());
   }, []);
 
-  console.log(auth);
-
   return (
     <BrowserRouter>
       <GlobalStyles />
