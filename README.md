@@ -5,9 +5,43 @@
 ## Description 
 Full-stack application for authenticating made of TypeScript.
 
+## Why I created
+
+## Technologies
+
+### Language/Libraries
+**Frone-End**
+- TypeScript
+- React
+- Redux
+- Emotion
+- Material-UI
+- Axios
+
+**Back-End**
+- TypeScript
+- Express
+- MongoDB
+
+### Build tool
+- Webpack
+
+### Lint/Format/Test tools
+- ESLint
+- Prettier
+- Webpack
+
+### CI/CD tool
+- Github Actions
+
+## Links
+- Production (deployment/production branch)
+    - https://authenticator-neon.vercel.app/
+- Staging (deployment/staging branch)
+    - https://authenticator-neon-staging.vercel.app/
+
 ## Architecture
 ![architecture](https://user-images.githubusercontent.com/54035518/126865120-a01822bd-0dd0-4306-bda2-083304c86fe1.png)
-
 
 ## References
 - [passport](https://github.com/jaredhanson/passport)
