@@ -1,6 +1,6 @@
 import { createSlice, SerializedError } from '@reduxjs/toolkit';
 import { User } from '@/types/user';
-import { fetchAuth } from './asyncActions';
+import { fetchUser } from './asyncActions';
 
 type AuthState = {
   auth: {
@@ -25,7 +25,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchAuth.fulfilled, (state, action) => {
+    builder.addCase(fetchUser.fulfilled, (state, action) => {
       state.auth = {
         isAuthenticated: action.payload.isAuthenticated,
         user: action.payload.user,
@@ -33,7 +33,7 @@ const authSlice = createSlice({
         error: undefined,
       };
     });
-    builder.addCase(fetchAuth.pending, (state) => {
+    builder.addCase(fetchUser.pending, (state) => {
       state.auth = {
         isAuthenticated: false,
         user: undefined,
@@ -41,7 +41,7 @@ const authSlice = createSlice({
         error: undefined,
       };
     });
-    builder.addCase(fetchAuth.rejected, (state, action) => {
+    builder.addCase(fetchUser.rejected, (state, action) => {
       state.auth = {
         isAuthenticated: false,
         user: undefined,
