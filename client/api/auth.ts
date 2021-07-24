@@ -6,7 +6,7 @@ type LogoutResponse = {
   message: string;
 };
 
-type FetchAuthResponse = {
+type FetchUserResponse = {
   isAuthenticated: boolean;
   user: User;
 };
@@ -37,9 +37,9 @@ class AuthApi {
       .catch((err: AxiosError<LogoutResponse>) => cb(undefined, err.response));
   };
 
-  fetchAuth = async () =>
+  fetchUser = async () =>
     this.axios
-      .get<FetchAuthResponse>('/api/auth')
+      .get<FetchUserResponse>('/api/auth')
       .then((res) => res.data)
       .catch((err: AxiosError<IErrorResponse>) =>
         Promise.reject(new Error(err.response.data.message || err.message))
