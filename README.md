@@ -48,6 +48,7 @@ To understand how authentication flow works. I thought that the part of authenti
 - Staging (deployment/staging branch)
     - https://authenticator-neon-staging.vercel.app/
 
+note: Before visiting the website, please disable cross-site tracking permission on chrome or safari settings.
 ## Upcoming Features
 - Add JWT authentication
 - Add other OAuth providers, such as Facebook and Instagram
