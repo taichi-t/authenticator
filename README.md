@@ -35,6 +35,8 @@ Full-stack application for authenticating made of TypeScript.
 - Github Actions
 
 ## OAuth flow
+![OAuth flow](https://user-images.githubusercontent.com/54035518/126883889-5e505853-c635-4aac-88b8-ba9c44cf7b92.png)
+
 
 ## Architecture
 ![architecture](https://user-images.githubusercontent.com/54035518/126865120-a01822bd-0dd0-4306-bda2-083304c86fe1.png)
