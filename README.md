@@ -3,9 +3,10 @@
 <img width="1440" alt="Screen Shot 2021-07-24 at 2 37 25" src="https://user-images.githubusercontent.com/54035518/126864541-04d3d60d-0b1a-4e58-83d1-8df963564362.png">
 
 ## Description 
-Full-stack application for authenticating made of TypeScript.
+Full-stack application for just authenticating made of TypeScript.
 
 ## Why I created
+To understand how authentication flow works. I thought that the part of authentication is more difficult and important than others when it comes to applications. Also, most applications have an auth feature. So I decided to build it to comprehend every single detail of authentication flow.
 
 ## Technologies
 
@@ -48,6 +49,8 @@ Full-stack application for authenticating made of TypeScript.
     - https://authenticator-neon-staging.vercel.app/
 
 ## Upcoming Features
+- Add JWT authentication
+- Add other OAuth providers, such as Facebook and Instagram
 
 ## References
 - [passport](https://github.com/jaredhanson/passport)
