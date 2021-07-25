@@ -30,7 +30,6 @@ To understand how authentication flow works. I thought that the part of authenti
 ### Lint/Format/Test tools
 - ESLint
 - Prettier
-- Webpack
 
 ### CI/CD tool
 - Github Actions
