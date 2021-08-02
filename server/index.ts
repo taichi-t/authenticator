@@ -27,15 +27,15 @@ if (env === 'development') {
   );
 
   app.use(webpackHot(compiler));
-
-  // Cors
-  app.use(
-    cors({
-      credentials: true,
-      origin: BASE_CLIENT_URL,
-    })
-  );
 }
+
+// Cors
+app.use(
+  cors({
+    credentials: true,
+    origin: BASE_CLIENT_URL,
+  })
+);
 
 // Express body parser
 app.use(express.urlencoded({ extended: true }));
