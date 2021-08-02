@@ -1,3 +1,5 @@
+import webpack from 'webpack';
+
 import express from 'express';
 import MongoStore from 'connect-mongo';
 import { errorHandler, logErrors, notFound } from '@/middleware/error';
@@ -6,19 +8,34 @@ import configPassport from '@/config/passport/index';
 import cors from 'cors';
 import expressSession from 'express-session';
 import MongoDb from '@/db/index';
+import webpackDev from 'webpack-dev-middleware';
+import webpackHot from 'webpack-hot-middleware';
+import webpackConfig from '@/webpack.dev.config';
 import apiRouter from './routes/index';
 
 const port = process.env.PORT || 8080;
 const env = process.env.NODE_ENV;
 const app: express.Application = express();
 
-// Cors
-app.use(
-  cors({
-    credentials: true,
-    origin: BASE_CLIENT_URL,
-  })
-);
+// Hot reload
+if (env === 'development') {
+  const compiler = webpack(webpackConfig);
+  app.use(
+    webpackDev(compiler, {
+      publicPath: webpackConfig.output.publicPath,
+    })
+  );
+
+  app.use(webpackHot(compiler));
+
+  // Cors
+  app.use(
+    cors({
+      credentials: true,
+      origin: BASE_CLIENT_URL,
+    })
+  );
+}
 
 // Express body parser
 app.use(express.urlencoded({ extended: true }));
