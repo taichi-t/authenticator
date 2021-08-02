@@ -1,19 +1,11 @@
 import Axios, { AxiosError, AxiosInstance } from 'axios';
 import getConfig from '@/config';
-import { User } from '@/types/user';
-
-type LogoutResponse = {
-  message: string;
-};
-
-type FetchUserResponse = {
-  isAuthenticated: boolean;
-  user: User;
-};
-
-type IErrorResponse = {
-  message: string;
-};
+import {
+  LogoutResponse,
+  IErrorResponse,
+  FetchUserResponse,
+} from '@/types/api/auth';
+import { Auth } from '@/entity/Auth';
 
 class AuthApi {
   axios: AxiosInstance;
@@ -40,10 +32,16 @@ class AuthApi {
   fetchUser = async () =>
     this.axios
       .get<FetchUserResponse>('/api/auth')
-      .then((res) => res.data)
-      .catch((err: AxiosError<IErrorResponse>) =>
-        Promise.reject(new Error(err.response.data.message || err.message))
-      );
+      .then((res) => {
+        const data = Auth.fromJSON(res.data);
+        return data;
+      })
+      .catch((err: AxiosError<IErrorResponse>) => {
+        console.log(err);
+        return Promise.reject(
+          new Error(err.response.data.message ?? err.message)
+        );
+      });
 }
 
 export default new AuthApi();
