@@ -1,4 +1,8 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import {
+  configureStore,
+  combineReducers,
+  getDefaultMiddleware,
+} from '@reduxjs/toolkit';
 import authSliceReducer from '@/features/auth/slice';
 
 const rootReducer = combineReducers({
@@ -8,6 +12,9 @@ const rootReducer = combineReducers({
 const store = configureStore({
   reducer: rootReducer,
   devTools: process.env.NODE_ENV === 'development',
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
