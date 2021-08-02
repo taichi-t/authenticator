@@ -42,6 +42,7 @@ const authSlice = createSlice({
       };
     });
     builder.addCase(fetchUser.rejected, (state, action) => {
+      console.log(state, action);
       state.auth = {
         isAuthenticated: false,
         user: undefined,
