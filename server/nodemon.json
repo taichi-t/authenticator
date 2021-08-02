@@ -2,5 +2,6 @@
   "ignore": ["**/*.test.ts", "node_modules"],
   "restartable": "rs",
   "watch": ["./dist/server.js"],
-  "delay": 2500
+  "exec": "node -r dotenv/config ./dist/server.js",
+  "delay": 3000
 }
